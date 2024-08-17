@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { io } from "socket.io-client";
+import mqtt from "mqtt";
+import HookMqtt from "./Hook";
 export default function Home(){
     const navigate = useNavigate();
+
     return (
         <div>
             <h1 className="text-3xl font-bold underline" >Home</h1>
+            <HookMqtt />
 
         </div>
     )
