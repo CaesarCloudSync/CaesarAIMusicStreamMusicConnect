@@ -30,6 +30,7 @@ const HookMqtt = () => {
   const [isSubed, setIsSub] = useState(false)
   const [payload, setPayload] = useState({})
   const [connectStatus, setConnectStatus] = useState('Connect');
+  const [subscription,setSubscription] = useState({topic: 'caesaraimusicstreamconnect/current-track',qos: 2});
 
   const mqttConnect = (host:any, mqttOption:any) => {
     setConnectStatus('Connecting')
@@ -52,12 +53,14 @@ const HookMqtt = () => {
       client.on('connect', () => {
         setConnectStatus('Connected')
         console.log('connection successful')
+        mqttSub()
       })
 
       // https://github.com/mqttjs/MQTT.js#event-error
       client.on('error', (err:any) => {
         console.error('Connection error: ', err)
         client.end()
+        mqttUnSub()
       })
 
       // https://github.com/mqttjs/MQTT.js#event-reconnect
@@ -85,6 +88,7 @@ const HookMqtt = () => {
         })
       } catch (error) {
         console.log('disconnect error:', error)
+        mqttUnSub()
       }
     }
   }
@@ -103,10 +107,10 @@ const HookMqtt = () => {
     }
   }
 
-  const mqttSub = (subscription:any) => {
+  const mqttSub = () => {
     if (client) {
       // topic & QoS for MQTT subscribing
-      const { topic, qos } = subscription
+      const { topic, qos } =  subscription
       // subscribe topic
       // https://github.com/mqttjs/MQTT.js#mqttclientsubscribetopictopic-arraytopic-object-options-callback
       client.subscribe(topic, { qos }, (error:any) => {
@@ -122,9 +126,9 @@ const HookMqtt = () => {
 
   // unsubscribe topic
   // https://github.com/mqttjs/MQTT.js#mqttclientunsubscribetopictopic-array-options-callback
-  const mqttUnSub = (subscription:any) => {
+  const mqttUnSub = () => {
     if (client) {
-      const { topic, qos } = subscription
+      const { topic, qos } =  subscription
       client.unsubscribe(topic, { qos }, (error:any) => {
         if (error) {
           console.log('Unsubscribe error', error)
