@@ -151,8 +151,16 @@ const HookMqtt = () => {
 
               
    
-      <div style={{width:"100%",height:"100px",backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
+      <div style={{display:"flex",alignItems:"center",width:"100%",height:"100px",backgroundColor:"grey",borderRadius:"10px",marginTop:"auto",padding:"10px",gap:"20px"}}>
 
+      <div style={{width:"80px",height:"80px",backgroundColor:"green",borderRadius:"5px"}}>
+          
+      </div>
+
+      <p>Hello</p>
+      <div style={{marginLeft:"auto",width:"50px",height:"50px",backgroundColor:"black",borderRadius:"5px"}}>
+
+      </div>
       </div>
 
 
