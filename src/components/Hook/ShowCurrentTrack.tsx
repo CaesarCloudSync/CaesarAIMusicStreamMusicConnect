@@ -2,6 +2,7 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PauseIcon from '@mui/icons-material/Pause';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import DevicesIcon from '@mui/icons-material/Devices';
+import PlayerApp from './Player';
 export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStatus,currentTrack}:any){
     const initialConnectionOptions = {
         // ws or wss
@@ -40,9 +41,8 @@ export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStat
         </div>
 
         <div style={{width:"110px",height:"70px",backgroundColor:"#141213",borderRadius:"5px",alignSelf:"center",marginRight:currentTrack.album_name === "" ? "10px":"110px",justifyContent:"center",alignItems:"center",display:"flex"}}>
-            <SkipPreviousIcon sx={{ fontSize: 40 }}   style={{color:"white"}}/>
-            <PauseIcon sx={{ fontSize: 40 }}  style={{color:"white"}}/>
-            <SkipNextIcon sx={{ fontSize: 40 }}  style={{color:"white"}}/>
+  
+        {currentTrack.album_name !== "" &&  <PlayerApp currentsong={currentTrack}/>}
             
         </div>
         <a style={{cursor:"pointer"}}  onClick={() =>{if (connectStatus === "Connect"){mqttConnect(url, options)} else if (connectStatus === "Connected"){mqttDisconnect()}}}>
@@ -55,3 +55,7 @@ export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStat
         </div>
     )
 }
+/*
+          <SkipPreviousIcon sx={{ fontSize: 40 }}   style={{color:"white"}}/>
+            <PauseIcon sx={{ fontSize: 40 }}  style={{color:"white"}}/>
+            <SkipNextIcon sx={{ fontSize: 40 }}  style={{color:"white"}}/> */

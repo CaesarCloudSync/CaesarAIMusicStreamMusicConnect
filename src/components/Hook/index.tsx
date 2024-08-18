@@ -7,7 +7,7 @@ import mqtt from 'mqtt'
 import useWindowDimensions from '../hooks/useWIndowDimensions'
 import ShowCurrentTrack from './ShowCurrentTrack'
 import TrackProgress from './TrackProgress'
-
+import PlayerApp from './Player'
 export const QosOption = createContext([])
 // https://github.com/mqttjs/MQTT.js#qos
 const qosOption = [
