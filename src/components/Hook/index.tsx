@@ -119,11 +119,12 @@ const HookMqtt = () => {
 
   // publish message
   // https://github.com/mqttjs/MQTT.js#mqttclientpublishtopic-message-options-callback
-  const mqttPublish = () => {
+  const mqttPublish = (topic:any,payload:any) => {
     if (client) {
       // topic, QoS & payload for publishing message
-      const { topic, qos, payload } = Object.assign({},subscription,{payload:text})//context
-      client.publish(topic, payload, { qos }, (error:any) => {
+
+      console.log("publishing","caesaraimusicstreamconnect/song-end", JSON.stringify(Object.assign({},JSON.parse( payload),{"name":"Hellomo"})), 0,)
+      client.publish("caesaraimusicstreamconnect/song-end",JSON.stringify(Object.assign({},JSON.parse( payload),{"name":"Hellomo"})),0 , (error:any) => {
         if (error) {
           console.log('Publish error: ', error)
         }
@@ -194,7 +195,7 @@ const HookMqtt = () => {
       <div>
         <TrackProgress progress={payload.progress} duration={payload.duration}></TrackProgress>
 
-        <ShowCurrentTrack currentTrack={payload} setPayload mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} connectStatus={connectStatus}></ShowCurrentTrack>
+        <ShowCurrentTrack currentTrack={payload} setPayload mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} mqttPublish={mqttPublish} connectStatus={connectStatus}></ShowCurrentTrack>
 
 
       </div>
