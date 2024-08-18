@@ -83,7 +83,7 @@ const Player = ({
     return (
         <div className="player" style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
             <div className="time-control" style={{display:"flex"}}>
-                <p>{getTime(songInfo.currentTime)}</p>
+                <p style={{color:"white"}}>{getTime(songInfo.currentTime)}</p>
                 <div
                  
                     className="track"
@@ -97,7 +97,7 @@ const Player = ({
                     />
                     <div style={trackAnim} className="animate-track"></div>
                 </div>
-                <p>
+                <p style={{color:"white"}}>
                     {songInfo.duration ? getTime(songInfo.duration) : "00:00"}
                 </p>
             </div>
@@ -105,6 +105,7 @@ const Player = ({
                 <FontAwesomeIcon
                     onClick={() => skipTrackHandler("skip-back")}
                     size="2x"
+                    style={{color:"white"}}
                     className="skip-back"
                     icon={faAngleLeft}
                 />
@@ -112,6 +113,7 @@ const Player = ({
                     <FontAwesomeIcon
                         onClick={playSongHandler}
                         size="2x"
+                        style={{color:"white"}}
                         className="play"
                         icon={faPlay}
                     />
@@ -119,6 +121,7 @@ const Player = ({
                     <FontAwesomeIcon
                         onClick={playSongHandler}
                         size="2x"
+                        style={{color:"white"}}
                         className="pause"
                         icon={faPause}
                     />
@@ -127,6 +130,7 @@ const Player = ({
                 <FontAwesomeIcon
                     onClick={() => skipTrackHandler("skip-forward")}
                     size="2x"
+                    style={{color:"white"}}
                     className="skip-forward"
                     icon={faAngleRight}
                 />

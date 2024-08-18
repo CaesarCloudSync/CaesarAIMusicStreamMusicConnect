@@ -1,5 +1,5 @@
 // FileName: App.js
-import { useRef, useState } from "react";
+import { useRef, useState,useEffect } from "react";
 import Player from "./components/PlayerSong";
 import Song from "./components/Song";
 //import "./styles/app.scss";
@@ -41,6 +41,13 @@ export default function PlayerApp({currentsong}:any) {
 
     if (isPlaying) audioRef.current.play();
   };
+  const playfromstart = () =>{
+    audioRef.current.play();
+    setIsPlaying(!isPlaying);
+  }
+  useEffect(() =>{
+    playfromstart()
+  },[])
   return (
     <div>
       <Player

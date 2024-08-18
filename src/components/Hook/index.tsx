@@ -45,6 +45,7 @@ const HookMqtt = () => {
     "artist": "",
     "url": "",
     "progress":0})
+    console.log(payload,"payload")
   const [connectStatus, setConnectStatus] = useState('Connect');
   const [subscription,setSubscription] = useState({topic: 'caesaraimusicstreamconnect/current-track',qos: 0});
   const [text,setText] = useState("");
@@ -160,6 +161,7 @@ const HookMqtt = () => {
     }
   }
 
+
   return (
     <div style={{padding:"20px",display:"flex",flexDirection:"column",gap:"50px",height:dimensions.height}}>
       
@@ -176,7 +178,7 @@ const HookMqtt = () => {
 
       </div>
       <div style={{width:"70%",height:`100px`,backgroundColor:"#141213",borderRadius:"10px",}}>
-        <p style={{color:"white",fontSize:"30px"}}>{payload.title}</p>
+        <p style={{color:"white",fontSize:"30px"}}>{payload.name}</p>
         <p style={{color:"grey",fontSize:"25px"}}>{payload.artist}</p>
 
       </div>
@@ -189,7 +191,7 @@ const HookMqtt = () => {
       <div>
         <TrackProgress progress={payload.progress} duration={payload.duration}></TrackProgress>
 
-        <ShowCurrentTrack currentTrack={payload} mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} connectStatus={connectStatus}></ShowCurrentTrack>
+        <ShowCurrentTrack currentTrack={payload} setPayload mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} connectStatus={connectStatus}></ShowCurrentTrack>
 
 
       </div>
