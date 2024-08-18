@@ -8,6 +8,9 @@ import useWindowDimensions from '../hooks/useWIndowDimensions'
 import ShowCurrentTrack from './ShowCurrentTrack'
 import TrackProgress from './TrackProgress'
 import PlayerApp from './Player'
+import CaesarAILogo from './CaesarAILogo.png'; // Tell webpack this JS file uses this image
+
+
 export const QosOption = createContext([])
 // https://github.com/mqttjs/MQTT.js#qos
 const qosOption = [
@@ -45,7 +48,7 @@ const HookMqtt = () => {
     "artist": "",
     "url": "",
     "progress":0})
-    console.log(payload,"payload")
+    //console.log(payload,"payload")
   const [connectStatus, setConnectStatus] = useState('Connect');
   const [subscription,setSubscription] = useState({topic: 'caesaraimusicstreamconnect/current-track',qos: 0});
   const [text,setText] = useState("");
@@ -166,15 +169,15 @@ const HookMqtt = () => {
     <div style={{padding:"20px",display:"flex",flexDirection:"column",gap:"50px",height:dimensions.height}}>
       
       <div style={{display:"flex",gap:"10px"}}>
-      <div style={{width:"130px",height:"100px",backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
-
+      <div style={{width:"130px",height:"100px",borderRadius:"10px",marginTop:"auto"}}>
+    <img src={CaesarAILogo}></img>
       </div>
 
 
-        <h1  className="text-3xl font-bold underline" style={{color:"white",position:"relative",top:"24px"}}>CaesarAIMusicStream</h1>
+        <h1  className="text-3xl font-bold underline" style={{color:"white",position:"relative",top:"28px"}}>CaesarAIMusicStream</h1>
       </div>
-      <div style={{width:"50%",height:`${dimensions.height * 0.4}px`,backgroundColor:"#141213",borderRadius:"10px",marginTop:"auto"}}>
-        <img style={{width:"100%",height:"100%",borderRadius:"10px"}} src={payload?.thumbnail}></img>
+      <div style={{width:"50%",height:`${dimensions.height * 0.5}px`,backgroundColor:"#141213",borderRadius:"10px",marginTop:"auto"}}>
+        {payload.thumbnail !== "" && <img style={{width:"100%",height:"100%",borderRadius:"10px"}} src={payload?.thumbnail}></img>}
 
       </div>
       <div style={{width:"70%",height:`100px`,backgroundColor:"#141213",borderRadius:"10px",}}>

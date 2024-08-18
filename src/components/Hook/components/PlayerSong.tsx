@@ -94,6 +94,7 @@ const Player = ({
                         value={songInfo.currentTime}
                         onChange={dragHandler}
                         type="range"
+                        style={{width:"400px"}}
                     />
                     <div style={trackAnim} className="animate-track"></div>
                 </div>

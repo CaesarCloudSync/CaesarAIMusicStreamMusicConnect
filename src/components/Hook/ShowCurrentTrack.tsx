@@ -32,7 +32,7 @@ export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStat
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%",height:"90px",backgroundColor:"#141213",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"10px"}}>
         <div style={{display:"flex",gap:"10px"}}>
             <div style={{width:"70px",height:"70px",backgroundColor:"#141213",borderRadius:"5px"}}>
-            <img style={{width:"100%",height:"100%",borderRadius:"10px"}} src={currentTrack?.thumbnail}></img>
+            {currentTrack.thumbnail !== "" && <img style={{width:"100%",height:"100%",borderRadius:"10px"}} src={currentTrack?.thumbnail}></img>}
             </div>
             <div style={{display:"flex",flexDirection:"column",padding:"10px"}}>
                 <p style={{color:"white"}}>{currentTrack.album_name}</p>
