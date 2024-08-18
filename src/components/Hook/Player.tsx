@@ -8,9 +8,9 @@ import Song from "./components/Song";
 import chillHop from "./components/data";
 import Library from "./components/Library";
 import Nav from "./components/Nav";
-export default function PlayerApp({currentsong}:any) {
+export default function PlayerApp({currentsong,key}:any) {
   const [songs, setSongs] = useState<any>([currentsong]);
-  console.log(songs)
+  console.log(songs,"songs")
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState(false);
@@ -49,7 +49,7 @@ export default function PlayerApp({currentsong}:any) {
     playfromstart()
   },[])
   return (
-    <div>
+    <div key={key}>
       <Player
         id={songs.id}
         songs={songs}

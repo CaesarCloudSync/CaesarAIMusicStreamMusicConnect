@@ -42,7 +42,7 @@ export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStat
 
         <div style={{width:"110px",height:"70px",backgroundColor:"#141213",borderRadius:"5px",alignSelf:"center",marginRight:currentTrack.album_name === "" ? "10px":"110px",justifyContent:"center",alignItems:"center",display:"flex"}}>
   
-        {currentTrack.album_name !== "" &&  <PlayerApp  currentsong={currentTrack}/>}
+        {currentTrack.album_name !== "" &&  <PlayerApp key={currentTrack.name} currentsong={currentTrack}/>}
             
         </div>
         <a style={{cursor:"pointer"}}  onClick={() =>{if (connectStatus === "Connect"){mqttConnect(url, options)} else if (connectStatus === "Connected"){mqttDisconnect()}}}>
