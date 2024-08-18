@@ -8,13 +8,13 @@ import Song from "./components/Song";
 import chillHop from "./components/data";
 import Library from "./components/Library";
 import Nav from "./components/Nav";
-export default function PlayerApp({currentsong,key,mqttPublish}:any) {
+export default function PlayerApp({currentsong,key,mqttPublish,audioRef}:any) {
   const [songs, setSongs] = useState<any>([currentsong]);
   //console.log(songs,"songs")
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState(false);
-  const audioRef = useRef(null);
+ 
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: 0,

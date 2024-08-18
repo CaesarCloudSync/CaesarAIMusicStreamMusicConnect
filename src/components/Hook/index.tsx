@@ -9,7 +9,7 @@ import ShowCurrentTrack from './ShowCurrentTrack'
 import TrackProgress from './TrackProgress'
 import PlayerApp from './Player'
 import CaesarAILogo from './CaesarAILogo.png'; // Tell webpack this JS file uses this image
-
+import { useRef } from 'react'
 
 export const QosOption = createContext([])
 // https://github.com/mqttjs/MQTT.js#qos
@@ -32,6 +32,7 @@ const HookMqtt = () => {
   const dimensions = useWindowDimensions()
   const [client, setClient] = useState(null)
   const [isSubed, setIsSub] = useState(false)
+  const audioRef = useRef(null);
   const [payload, setPayload] = useState<any>({
     "album_id": "",
     "thumbnail": "",
@@ -50,7 +51,7 @@ const HookMqtt = () => {
     "progress":0})
     //console.log(payload,"payload")
   const [connectStatus, setConnectStatus] = useState('Connect');
-  const [subscription,setSubscription] = useState({topic: 'caesaraimusicstreamconnect/current-track',qos: 0});
+  const [subscription,setSubscription] = useState([{topic: 'caesaraimusicstreamconnect/current-track',qos: 0},{topic:"caesaraimusicstreamconnect/play",qos: 0}]);
   const [text,setText] = useState("");
   const mqttConnect = (host:any, mqttOption:any) => {
     setConnectStatus('Connecting')
@@ -91,10 +92,15 @@ const HookMqtt = () => {
       // https://github.com/mqttjs/MQTT.js#event-message
       client.on('message', (topic:any, message:any) => {
         /*IMPORTANT HERE */
+        if (topic.includes("/current-track")){
      
         const payload:any = JSON.parse(message.toString())
         setPayload(payload)
         console.log(payload)
+        }
+        else if(topic.includes("/play")){
+          audioRef.current.play()
+        } 
         
         ///console.log(`received message: ${JSON.stringify(payload)} from topic: ${topic}`)
       })
@@ -135,16 +141,19 @@ const HookMqtt = () => {
   const mqttSub = () => {
     if (client) {
       // topic & QoS for MQTT subscribing
-      const { topic, qos } =  subscription
+
       // subscribe topic
       // https://github.com/mqttjs/MQTT.js#mqttclientsubscribetopictopic-arraytopic-object-options-callback
-      client.subscribe(topic, { qos }, (error:any) => {
-        if (error) {
-          console.log('Subscribe to topics error', error)
-          return
-        }
-        console.log(`Subscribe to topics: ${topic}`)
-        setIsSub(true)
+      subscription.map((sub) =>{
+        const { topic, qos } =  sub
+        client.subscribe(topic, { qos }, (error:any) => {
+          if (error) {
+            console.log('Subscribe to topics error', error)
+            return
+          }
+          console.log(`Subscribe to topics: ${topic}`)
+          setIsSub(true)
+        })
       })
     }
   }
@@ -153,14 +162,16 @@ const HookMqtt = () => {
   // https://github.com/mqttjs/MQTT.js#mqttclientunsubscribetopictopic-array-options-callback
   const mqttUnSub = () => {
     if (client) {
-      const { topic, qos } =  subscription
-      client.unsubscribe(topic, { qos }, (error:any) => {
-        if (error) {
-          console.log('Unsubscribe error', error)
-          return
-        }
-        console.log(`unsubscribed topic: ${topic}`)
-        setIsSub(false)
+      subscription.map((sub) =>{
+        const { topic, qos } =  sub
+        client.unsubscribe(topic, { qos }, (error:any) => {
+          if (error) {
+            console.log('Unsubscribe error', error)
+            return
+          }
+          console.log(`unsubscribed topic: ${topic}`)
+          setIsSub(false)
+        })
       })
     }
   }
@@ -195,7 +206,7 @@ const HookMqtt = () => {
       <div>
         <TrackProgress progress={payload.progress} duration={payload.duration}></TrackProgress>
 
-        <ShowCurrentTrack currentTrack={payload} setPayload mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} mqttPublish={mqttPublish} connectStatus={connectStatus}></ShowCurrentTrack>
+        <ShowCurrentTrack audioRef={audioRef} currentTrack={payload} setPayload mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} mqttPublish={mqttPublish} connectStatus={connectStatus}></ShowCurrentTrack>
 
 
       </div>
