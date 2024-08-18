@@ -29,7 +29,7 @@ const HookMqtt = () => {
   const [client, setClient] = useState(null)
   const [isSubed, setIsSub] = useState(false)
   const [payload, setPayload] = useState({})
-  const [connectStatus, setConnectStatus] = useState('Connect')
+  const [connectStatus, setConnectStatus] = useState('Connect');
 
   const mqttConnect = (host:any, mqttOption:any) => {
     setConnectStatus('Connecting')
@@ -154,7 +154,7 @@ const HookMqtt = () => {
 
       <div>
         <TrackProgress progess={10}></TrackProgress>
-        <ShowCurrentTrack></ShowCurrentTrack>
+        <ShowCurrentTrack mqttConnect={mqttConnect} connectStatus={connectStatus}></ShowCurrentTrack>
 
 
       </div>
