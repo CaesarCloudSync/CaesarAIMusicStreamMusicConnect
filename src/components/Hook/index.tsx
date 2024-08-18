@@ -154,7 +154,7 @@ const HookMqtt = () => {
 
       <div>
         <TrackProgress progess={10}></TrackProgress>
-        <ShowCurrentTrack mqttConnect={mqttConnect} connectStatus={connectStatus}></ShowCurrentTrack>
+        <ShowCurrentTrack mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} connectStatus={connectStatus}></ShowCurrentTrack>
 
 
       </div>

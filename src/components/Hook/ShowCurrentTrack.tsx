@@ -1,4 +1,4 @@
-export default function ShowCurrentTrack({mqttConnect,connectStatus}:any){
+export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStatus}:any){
     const initialConnectionOptions = {
         // ws or wss
         protocol: 'ws',
@@ -31,7 +31,7 @@ export default function ShowCurrentTrack({mqttConnect,connectStatus}:any){
         </div>
   
         <p>Hello</p>
-        <a style={{marginLeft:"auto",cursor:"pointer"}}  onClick={() =>{mqttConnect(url, options)}}>
+        <a style={{marginLeft:"auto",cursor:"pointer"}}  onClick={() =>{if (connectStatus === "Connect"){mqttConnect(url, options)} else if (connectStatus === "Connected"){mqttDisconnect()}}}>
         <div style={{width:"50px",height:"50px",backgroundColor:connectStatus === "Connected" ? "yellow" :"black",borderRadius:"5px"}}>
 
   
