@@ -4,7 +4,7 @@ import Publisher from './Publisher'
 import Subscriber from './Subscriber'
 import Receiver from './Receiver'
 import mqtt from 'mqtt'
-
+import useWindowDimensions from '../hooks/useWIndowDimensions'
 export const QosOption = createContext([])
 // https://github.com/mqttjs/MQTT.js#qos
 const qosOption = [
@@ -23,6 +23,7 @@ const qosOption = [
 ]
 
 const HookMqtt = () => {
+  const dimensions = useWindowDimensions()
   const [client, setClient] = useState(null)
   const [isSubed, setIsSub] = useState(false)
   const [payload, setPayload] = useState({})
@@ -134,19 +135,42 @@ const HookMqtt = () => {
   }
 
   return (
-    <>
-      <Connection
-        connect={mqttConnect}
-        disconnect={mqttDisconnect}
-        connectBtn={connectStatus}
-      />
-      <QosOption.Provider value={qosOption}>
-        <Subscriber sub={mqttSub} unSub={mqttUnSub} showUnsub={isSubed} />
-        <Publisher publish={mqttPublish} />
-      </QosOption.Provider>
-      <Receiver payload={payload} />
-    </>
+    <div style={{padding:"20px",display:"flex",flexDirection:"column",gap:"50px",height:dimensions.height}}>
+      
+      <div style={{display:"flex",gap:"10px"}}>
+      <div style={{width:"150px",height:"100px",backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
+
+      </div>
+
+
+        <h1  className="text-3xl font-bold underline" style={{color:"white",position:"relative",top:"24px"}}>CaesarAIMusicStream</h1>
+      </div>
+      <div style={{width:"60%",height:`${dimensions.height * 0.6}px`,backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
+
+      </div>
+
+              
+   
+      <div style={{width:"100%",height:"100px",backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
+
+      </div>
+
+
+    </div>
   )
 }
 
 export default HookMqtt
+/*
+
+    <Connection
+      connect={mqttConnect}
+      disconnect={mqttDisconnect}
+      connectBtn={connectStatus}
+    />
+    <QosOption.Provider value={qosOption}>
+      <Subscriber sub={mqttSub} unSub={mqttUnSub} showUnsub={isSubed} />
+      <Publisher publish={mqttPublish} />
+    </QosOption.Provider>
+    <Receiver payload={payload} />
+      */
