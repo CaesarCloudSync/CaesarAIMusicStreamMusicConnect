@@ -149,9 +149,11 @@ const HookMqtt = () => {
 
       </div>
 
-              
-   
-      <div style={{display:"flex",alignItems:"center",width:"100%",height:"100px",backgroundColor:"grey",borderRadius:"10px",marginTop:"auto",padding:"10px",gap:"20px"}}>
+
+      <div>
+      <div style={{display:"flex",alignItems:"center",width:"100%",height:"10px",backgroundColor:"red",borderTopLeftRadius:"2px",borderTopRightRadius:"2px",marginTop:"auto"}}>
+      </div>
+      <div style={{display:"flex",alignItems:"center",width:"100%",height:"90px",backgroundColor:"grey",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"20px"}}>
 
       <div style={{width:"80px",height:"80px",backgroundColor:"green",borderRadius:"5px"}}>
           
@@ -160,6 +162,7 @@ const HookMqtt = () => {
       <p>Hello</p>
       <div style={{marginLeft:"auto",width:"50px",height:"50px",backgroundColor:"black",borderRadius:"5px"}}>
 
+      </div>
       </div>
       </div>
 
