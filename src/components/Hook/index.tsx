@@ -7,6 +7,7 @@ import mqtt from 'mqtt'
 import useWindowDimensions from '../hooks/useWIndowDimensions'
 import ShowCurrentTrack from './ShowCurrentTrack'
 import TrackProgress from './TrackProgress'
+
 export const QosOption = createContext([])
 // https://github.com/mqttjs/MQTT.js#qos
 const qosOption = [
@@ -28,9 +29,24 @@ const HookMqtt = () => {
   const dimensions = useWindowDimensions()
   const [client, setClient] = useState(null)
   const [isSubed, setIsSub] = useState(false)
-  const [payload, setPayload] = useState({album_name:"",thumbnail:"",artist_name:"",name:"",progess:0,duration:0})
+  const [payload, setPayload] = useState<any>({
+    "album_id": "",
+    "thumbnail": "",
+    "artist_id": "",
+    "album": "",
+    "id": "",
+    "duration": 0,
+    "isActive": true,
+    "artwork": "",
+    "mediastatus": "",
+    "title": "",
+    "album_name": "",
+    "index":-1,
+    "artist": "",
+    "url": "",
+    "progress":0})
   const [connectStatus, setConnectStatus] = useState('Connect');
-  const [subscription,setSubscription] = useState({topic: 'caesaraimusicstreamconnect/current-track',qos: 2});
+  const [subscription,setSubscription] = useState({topic: 'caesaraimusicstreamconnect/current-track',qos: 0});
   const [text,setText] = useState("");
   const mqttConnect = (host:any, mqttOption:any) => {
     setConnectStatus('Connecting')
@@ -71,9 +87,12 @@ const HookMqtt = () => {
       // https://github.com/mqttjs/MQTT.js#event-message
       client.on('message', (topic:any, message:any) => {
         /*IMPORTANT HERE */
-        const payload:any = { topic, message: message.toString() }
+     
+        const payload:any = JSON.parse(message.toString())
         setPayload(payload)
-        console.log(`received message: ${message} from topic: ${topic}`)
+        console.log(payload)
+        
+        ///console.log(`received message: ${JSON.stringify(payload)} from topic: ${topic}`)
       })
     }
   }, [client])
@@ -152,7 +171,13 @@ const HookMqtt = () => {
 
         <h1  className="text-3xl font-bold underline" style={{color:"white",position:"relative",top:"24px"}}>CaesarAIMusicStream</h1>
       </div>
-      <div style={{width:"80%",height:`${dimensions.height * 0.6}px`,backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
+      <div style={{width:"50%",height:`${dimensions.height * 0.4}px`,backgroundColor:"#141213",borderRadius:"10px",marginTop:"auto"}}>
+        <img style={{width:"100%",height:"100%",borderRadius:"10px"}} src={payload?.thumbnail}></img>
+
+      </div>
+      <div style={{width:"70%",height:`100px`,backgroundColor:"#141213",borderRadius:"10px",}}>
+        <p style={{color:"white",fontSize:"30px"}}>{payload.title}</p>
+        <p style={{color:"grey",fontSize:"25px"}}>{payload.artist}</p>
 
       </div>
       {/*
@@ -162,11 +187,9 @@ const HookMqtt = () => {
       </button>
  */}
       <div>
-      <TrackProgress progess={payload.progess}></TrackProgress>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%",height:"90px",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"10px"}}>
+        <TrackProgress progress={payload.progress} duration={payload.duration}></TrackProgress>
 
-        </div>
-        {payload.album_name !== "" && <ShowCurrentTrack mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} connectStatus={connectStatus}></ShowCurrentTrack>}
+        <ShowCurrentTrack currentTrack={payload} mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} connectStatus={connectStatus}></ShowCurrentTrack>
 
 
       </div>

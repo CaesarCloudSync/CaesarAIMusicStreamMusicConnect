@@ -1,4 +1,8 @@
-export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStatus}:any){
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import PauseIcon from '@mui/icons-material/Pause';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import DevicesIcon from '@mui/icons-material/Devices';
+export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStatus,currentTrack}:any){
     const initialConnectionOptions = {
         // ws or wss
         protocol: 'ws',
@@ -24,21 +28,26 @@ export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStat
       connectTimeout: 30 * 1000, // ms
     }
     return(
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%",height:"90px",backgroundColor:"grey",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"10px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%",height:"90px",backgroundColor:"#141213",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"10px"}}>
         <div style={{display:"flex",gap:"10px"}}>
-            <div style={{width:"70px",height:"70px",backgroundColor:"green",borderRadius:"5px"}}>
-                
+            <div style={{width:"70px",height:"70px",backgroundColor:"#141213",borderRadius:"5px"}}>
+            <img style={{width:"100%",height:"100%",borderRadius:"10px"}} src={currentTrack?.thumbnail}></img>
             </div>
-            <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <p >Hello</p>
+            <div style={{display:"flex",flexDirection:"column",padding:"10px"}}>
+                <p style={{color:"white"}}>{currentTrack.album_name}</p>
+                <p style={{color:"grey"}}>{currentTrack.artist}</p>
             </div>
         </div>
 
-        <div style={{width:"110px",height:"70px",backgroundColor:"green",borderRadius:"5px",alignSelf:"center"}}>
+        <div style={{width:"110px",height:"70px",backgroundColor:"#141213",borderRadius:"5px",alignSelf:"center",marginRight:currentTrack.album_name === "" ? "10px":"110px",justifyContent:"center",alignItems:"center",display:"flex"}}>
+            <SkipPreviousIcon sx={{ fontSize: 40 }}   style={{color:"white"}}/>
+            <PauseIcon sx={{ fontSize: 40 }}  style={{color:"white"}}/>
+            <SkipNextIcon sx={{ fontSize: 40 }}  style={{color:"white"}}/>
             
         </div>
         <a style={{cursor:"pointer"}}  onClick={() =>{if (connectStatus === "Connect"){mqttConnect(url, options)} else if (connectStatus === "Connected"){mqttDisconnect()}}}>
-        <div style={{width:"50px",height:"50px",backgroundColor:connectStatus === "Connected" ? "yellow" :"black",borderRadius:"5px"}}>
+        <div style={{width:"50px",height:"50px",borderRadius:"5px",justifyContent:"center",alignItems:"center",display:"flex"}}>
+            <DevicesIcon sx={{ fontSize: 40 }} style={{color:connectStatus === "Connected" ? "green" :"white"}}></DevicesIcon>
 
   
         </div>
