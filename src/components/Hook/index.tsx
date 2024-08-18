@@ -5,6 +5,8 @@ import Subscriber from './Subscriber'
 import Receiver from './Receiver'
 import mqtt from 'mqtt'
 import useWindowDimensions from '../hooks/useWIndowDimensions'
+import ShowCurrentTrack from './ShowCurrentTrack'
+import TrackProgress from './TrackProgress'
 export const QosOption = createContext([])
 // https://github.com/mqttjs/MQTT.js#qos
 const qosOption = [
@@ -151,19 +153,10 @@ const HookMqtt = () => {
 
 
       <div>
-      <div style={{display:"flex",alignItems:"center",width:"100%",height:"10px",backgroundColor:"red",borderTopLeftRadius:"2px",borderTopRightRadius:"2px",marginTop:"auto"}}>
-      </div>
-      <div style={{display:"flex",alignItems:"center",width:"100%",height:"90px",backgroundColor:"grey",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"20px"}}>
+        <TrackProgress progess={10}></TrackProgress>
+        <ShowCurrentTrack></ShowCurrentTrack>
 
-      <div style={{width:"80px",height:"80px",backgroundColor:"green",borderRadius:"5px"}}>
-          
-      </div>
 
-      <p>Hello</p>
-      <div style={{marginLeft:"auto",width:"50px",height:"50px",backgroundColor:"black",borderRadius:"5px"}}>
-
-      </div>
-      </div>
       </div>
 
 
