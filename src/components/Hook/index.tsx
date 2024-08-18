@@ -28,10 +28,10 @@ const HookMqtt = () => {
   const dimensions = useWindowDimensions()
   const [client, setClient] = useState(null)
   const [isSubed, setIsSub] = useState(false)
-  const [payload, setPayload] = useState({})
+  const [payload, setPayload] = useState({album_name:"",thumbnail:"",artist_name:"",name:"",progess:0,duration:0})
   const [connectStatus, setConnectStatus] = useState('Connect');
   const [subscription,setSubscription] = useState({topic: 'caesaraimusicstreamconnect/current-track',qos: 2});
-
+  const [text,setText] = useState("");
   const mqttConnect = (host:any, mqttOption:any) => {
     setConnectStatus('Connecting')
     /**
@@ -70,7 +70,8 @@ const HookMqtt = () => {
 
       // https://github.com/mqttjs/MQTT.js#event-message
       client.on('message', (topic:any, message:any) => {
-        const payload = { topic, message: message.toString() }
+        /*IMPORTANT HERE */
+        const payload:any = { topic, message: message.toString() }
         setPayload(payload)
         console.log(`received message: ${message} from topic: ${topic}`)
       })
@@ -95,10 +96,10 @@ const HookMqtt = () => {
 
   // publish message
   // https://github.com/mqttjs/MQTT.js#mqttclientpublishtopic-message-options-callback
-  const mqttPublish = (context:any) => {
+  const mqttPublish = () => {
     if (client) {
       // topic, QoS & payload for publishing message
-      const { topic, qos, payload } = context
+      const { topic, qos, payload } = Object.assign({},subscription,{payload:text})//context
       client.publish(topic, payload, { qos }, (error:any) => {
         if (error) {
           console.log('Publish error: ', error)
@@ -144,21 +145,28 @@ const HookMqtt = () => {
     <div style={{padding:"20px",display:"flex",flexDirection:"column",gap:"50px",height:dimensions.height}}>
       
       <div style={{display:"flex",gap:"10px"}}>
-      <div style={{width:"150px",height:"100px",backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
+      <div style={{width:"130px",height:"100px",backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
 
       </div>
 
 
         <h1  className="text-3xl font-bold underline" style={{color:"white",position:"relative",top:"24px"}}>CaesarAIMusicStream</h1>
       </div>
-      <div style={{width:"60%",height:`${dimensions.height * 0.6}px`,backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
+      <div style={{width:"80%",height:`${dimensions.height * 0.6}px`,backgroundColor:"grey",borderRadius:"10px",marginTop:"auto"}}>
 
       </div>
-
-
+      {/*
+            <input onChange={(e) =>{setText(e.target.value)}}></input>
+      <button style={{color:"white"}} onClick={() =>{mqttPublish()}}>
+      Publish
+      </button>
+ */}
       <div>
-        <TrackProgress progess={10}></TrackProgress>
-        <ShowCurrentTrack mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} connectStatus={connectStatus}></ShowCurrentTrack>
+      <TrackProgress progess={payload.progess}></TrackProgress>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%",height:"90px",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"10px"}}>
+
+        </div>
+        {payload.album_name !== "" && <ShowCurrentTrack mqttConnect={mqttConnect} mqttDisconnect={mqttDisconnect} connectStatus={connectStatus}></ShowCurrentTrack>}
 
 
       </div>

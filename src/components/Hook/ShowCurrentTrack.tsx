@@ -24,14 +24,20 @@ export default function ShowCurrentTrack({mqttConnect,mqttDisconnect,connectStat
       connectTimeout: 30 * 1000, // ms
     }
     return(
-        <div style={{display:"flex",alignItems:"center",width:"100%",height:"90px",backgroundColor:"grey",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"10px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%",height:"90px",backgroundColor:"grey",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"10px"}}>
+        <div style={{display:"flex",gap:"10px"}}>
+            <div style={{width:"70px",height:"70px",backgroundColor:"green",borderRadius:"5px"}}>
+                
+            </div>
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <p >Hello</p>
+            </div>
+        </div>
 
-        <div style={{width:"70px",height:"70px",backgroundColor:"green",borderRadius:"5px"}}>
+        <div style={{width:"110px",height:"70px",backgroundColor:"green",borderRadius:"5px",alignSelf:"center"}}>
             
         </div>
-  
-        <p>Hello</p>
-        <a style={{marginLeft:"auto",cursor:"pointer"}}  onClick={() =>{if (connectStatus === "Connect"){mqttConnect(url, options)} else if (connectStatus === "Connected"){mqttDisconnect()}}}>
+        <a style={{cursor:"pointer"}}  onClick={() =>{if (connectStatus === "Connect"){mqttConnect(url, options)} else if (connectStatus === "Connected"){mqttDisconnect()}}}>
         <div style={{width:"50px",height:"50px",backgroundColor:connectStatus === "Connected" ? "yellow" :"black",borderRadius:"5px"}}>
 
   
