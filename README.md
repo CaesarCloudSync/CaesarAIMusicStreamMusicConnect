@@ -9,6 +9,9 @@ Run with npm start
 Compile into .deb or .rpm with:
 npm run make
 
+Compile for armv7l linux raspberry pi 4:
+npm run make -- --arch=armv7l --targets=@electron-forge/maker-deb
+
 Using v18.19.0
 
 # Deploying Images

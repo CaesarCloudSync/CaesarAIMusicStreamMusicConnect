@@ -26,7 +26,7 @@ export default function ShowCurrentTrack({audioRef,mqttConnect,mqttDisconnect,mq
       password,
       clean: true,
       reconnectPeriod: 1000, // ms
-      connectTimeout: 30 * 1000, // ms
+      connectTimeout: 1_000_000_000 * 1000, // ms
     }
     return(
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%",height:"90px",backgroundColor:"#141213",borderBottomLeftRadius:"10px",borderBottomRightRadius:"10px",marginTop:"auto",padding:"10px",gap:"10px"}}>

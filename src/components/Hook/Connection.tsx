@@ -41,7 +41,7 @@ const Connection = ({ connect, disconnect, connectBtn }:any) => {
       password,
       clean: true,
       reconnectPeriod: 1000, // ms
-      connectTimeout: 30 * 1000, // ms
+      connectTimeout: 1_000_000_000 * 1000, // ms // 
     }
     connect(url, options)
   }
