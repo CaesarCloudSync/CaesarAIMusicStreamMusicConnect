@@ -51,7 +51,7 @@ const HookMqtt = () => {
     "progress":0})
     //console.log(payload,"payload")
   const [connectStatus, setConnectStatus] = useState('Connect');
-  const [subscription,setSubscription] = useState([{topic: 'caesaraimusicstreamconnect/current-track',qos: 0},{topic:"caesaraimusicstreamconnect/play",qos: 0},{topic:"caesaraimusicstreamconnect/pause",qos: 0},{topic:"caesaraimusicstreamconnect/volume",qos: 0}]);
+  const [subscription,setSubscription] = useState([{topic: 'caesaraimusicstreamconnect/current-track',qos: 0},{topic:"caesaraimusicstreamconnect/play",qos: 0},{topic:"caesaraimusicstreamconnect/pause",qos: 0},{topic:"caesaraimusicstreamconnect/volume",qos: 0},{topic:"caesaraimusicstreamconnect/seek",qos: 0}]);
   const [text,setText] = useState("");
   const mqttConnect = (host:any, mqttOption:any) => {
     setConnectStatus('Connecting')
@@ -107,6 +107,10 @@ const HookMqtt = () => {
         else if (topic.includes("/volume")){
           console.log("volume",message.toString())
           audioRef.current.volume = parseFloat(message.toString())
+        }
+        else if (topic.includes("/seek")){
+          console.log("seek",message.toString())
+          audioRef.current.currentTime = parseFloat(message.toString())
         }
         
         ///console.log(`received message: ${JSON.stringify(payload)} from topic: ${topic}`)
