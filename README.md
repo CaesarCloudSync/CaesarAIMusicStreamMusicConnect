@@ -12,6 +12,9 @@ npm run make
 Using v18.19.0
 
 # Deploying Images
+## Useful links
+https://console.hivemq.cloud/clusters/free/cc53739c14c847c3b542121d3f3007bc
+https://console.hivemq.cloud/clients/mqtt-js?uuid=cc53739c14c847c3b542121d3f3007bc
 1. First Remove .vit and out directories.
 2. Makes sure Image is 1000x1000 and square shaped. If logo is cirular. Use square background and make it transparent.
 
