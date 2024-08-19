@@ -13,17 +13,17 @@ const Connection = ({ connect, disconnect, connectBtn }:any) => {
   const [form] = Form.useForm()
   const initialConnectionOptions = {
     // ws or wss
-    protocol: 'ws',
-    host: 'broker.emqx.io',
+    protocol: 'wss',
+    host: 'cc53739c14c847c3b542121d3f3007bc.s1.eu.hivemq.cloud',
+    port: 8884,
     clientId: 'emqx_react_' + Math.random().toString(16).substring(2, 8),
     // ws -> 8083; wss -> 8084
-    port: 8083,
     /**
      * By default, EMQX allows clients to connect without authentication.
      * https://docs.emqx.com/en/enterprise/v4.4/advanced/auth.html#anonymous-login
      */
     username: 'emqx_test',
-    password: 'emqx_test',
+    password: 'Emqx_test23',
   }
 
   const handleProtocolChange = (value:any) => {
