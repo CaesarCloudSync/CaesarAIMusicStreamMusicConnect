@@ -12,8 +12,8 @@ npm run make
 Using v18.19.0
 
 # Deploying Images
-
-Makes sure Image is 1000x1000 and square shaped. If logo is cirular. Use square background and make it transparent.
+1. First Remove .vit and out directories.
+2. Makes sure Image is 1000x1000 and square shaped. If logo is cirular. Use square background and make it transparent.
 
 Add to main.ts:
   const mainWindow = new BrowserWindow({
@@ -26,7 +26,7 @@ Add to main.ts:
     },
   });
 
-Make sure that forge.config.ts looks like this:
+3. Make sure that forge.config.ts looks like this:
 
 
 const config: ForgeConfig = {
