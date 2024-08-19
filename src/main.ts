@@ -9,8 +9,8 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1442,
-    height: 1156,
+    width: 1222,
+    height: 956,
     icon: __dirname + '/images/CaesarAIMusicStream.svg',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
