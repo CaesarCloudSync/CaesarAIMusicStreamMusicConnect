@@ -95,10 +95,10 @@ const HookMqtt = () => {
         if (topic.includes("/current-track")){
      
         const payload:any = JSON.parse(message.toString())
-        console.log(payload)
+        //console.log(payload)
       
         setPayload(payload)
-        audioRef.current.volume = payload.volume
+        //audioRef.current.volume = payload.volume
   
         }
         else if(topic.includes("/play")){

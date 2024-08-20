@@ -8,7 +8,7 @@ import Song from "./components/Song";
 import chillHop from "./components/data";
 import Library from "./components/Library";
 import Nav from "./components/Nav";
-export default function PlayerApp({currentsong,key,mqttPublish,audioRef}:any) {
+export default function PlayerApp({currentsong,key,mqttPublish,audioRef,volume}:any) {
   const [songs, setSongs] = useState<any>([currentsong]);
   //console.log(songs,"songs")
   const [currentSong, setCurrentSong] = useState(songs[0]);
@@ -43,6 +43,7 @@ export default function PlayerApp({currentsong,key,mqttPublish,audioRef}:any) {
     mqttPublish("caesaraimusicstreamconnect/song-end",JSON.stringify(songs[currentIndex]))
   };
   const playfromstart = () =>{
+    audioRef.current.volume = volume
     audioRef.current.play();
     setIsPlaying(!isPlaying);
   }
