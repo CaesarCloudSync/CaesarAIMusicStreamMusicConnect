@@ -43,7 +43,10 @@ export default function PlayerApp({currentsong,key,mqttPublish,audioRef,volume}:
     mqttPublish("caesaraimusicstreamconnect/song-end",JSON.stringify(songs[currentIndex]))
   };
   const playfromstart = () =>{
-    audioRef.current.volume = volume
+    if (volume){
+      audioRef.current.volume = volume
+    }
+
     audioRef.current.play();
     setIsPlaying(!isPlaying);
   }
