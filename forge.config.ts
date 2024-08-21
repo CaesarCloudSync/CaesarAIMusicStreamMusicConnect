@@ -19,6 +19,15 @@ const config: ForgeConfig = {
           icon:  __dirname + '/images/CaesarAIMusicStream.svg'
         }
     }
+  },
+  {
+    name: '@electron-forge/maker-squirrel',
+      config: {
+        
+        options: {
+          icon:  __dirname + '/images/CaesarAIMusicStream.svg'
+        }
+    }
   }],
   plugins: [
     new VitePlugin({
